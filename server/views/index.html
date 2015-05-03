@@ -1,0 +1,54 @@
+<html>
+  <head>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.14/angular-ui-router.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/main.css">
+  </head>
+  {{#user}}
+  <body ng-app="rethinkDBWorkshop">
+    <div class='container'>
+      <div class='row'>
+        <div class='col-sm-9'>
+          <!-- <h1>Rethink Chat</h1> -->
+          <div ui-view id='container' class='messages'></div>
+        </div>
+        <div class='col-sm-3'>
+        </div>
+      </div>
+    </div>
+    <script src="/config.js"></script>
+    <script src='/app/services.js'></script>
+    <script src='/app/main/main.js'></script>
+    <script src='/app/index.js'></script>
+  </body>
+  {{/user}}
+  {{^user}}
+  <body>
+    <div class='container'>
+      <div class='row'>
+        <div class='col-sm-4 col-sm-offset-4'>
+          <h2>Login</h2>
+          <form action="/auth/login" method="post"> 
+            <!--enctype="application/x-www-form-urlencoded">-->
+            <div class="form-group">
+              <input type='email' name='email' placeholder='Email'/>
+              <input type='password' name='password' placeholder='Password'/>
+              <input type='submit' value='Log in'/>
+            </div>
+          </form>
+          <h2>Signup</h2>
+          <form action="/auth/signup" method="post">
+            <div class="form-group">
+              <input type='email' name='email' placeholder='Email'/>
+              <input type='password' name='password' placeholder='Password'/>
+              <input type='submit'/>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+  {{/user}}
+</html>

@@ -13,7 +13,8 @@ r._init = r.init(config.get('rethinkdb'), [
     indexes: ['created']
   },
   {
-    name: 'users'
+    name: 'users',
+    primaryKey: 'email'
   }
 ])
 .then(function (conn) {

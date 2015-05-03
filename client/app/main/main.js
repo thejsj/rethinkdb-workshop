@@ -9,14 +9,8 @@
 
   function MessagesController($window, MessageFactory) {
     var vm = this;
-    vm.messages = [];
+    vm.messages = MessageFactory.messageCollection;
     vm.submit = submit;
-
-    MessageFactory.getMessageCollection()
-      .then(function (coll) {
-        // Coll
-        vm.messages = coll;
-      });
 
     function submit() {
       if (vm.text.length > 0) {

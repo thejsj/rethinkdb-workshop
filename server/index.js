@@ -3,16 +3,46 @@
 
 var config = require('config');
 var express = require('express');
+var session = require('express-session');
+var engines = require('consolidate');
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var r = require('./db');
 var clientConfigParser = require('./clientConfigParser');
 
+var auth = require('./auth');
+var authRouter = require('./auth/auth-router');
+
 server.listen(config.get('ports').http);
 
-// Static Dirname
+// Middleware
 app
+  .use(bodyParser.json())
+  .use(bodyParser.urlencoded({ extended: true }))
+  .use(bodyParser.text())
+  .use(bodyParser.raw())
+  .use(cookieParser())
+  .use(session({
+    secret: 'zfnzkwjehgweghw',
+    resave: false,
+    saveUninitialized: true
+  }))
+  .use(auth.initialize())
+  .use(auth.session());
+
+// Views
+app
+  .set('views', __dirname + '/views')
+  .engine('html', engines.mustache)
+  .set('view engine', 'html');
+
+// Routes
+app
+  .use('/auth', authRouter)
   .use('/messages', function (req, res) {
     r.table('messages')
      .orderBy({index: 'created'})
@@ -23,7 +53,13 @@ app
      });
   })
   .use('/config.js', clientConfigParser)
-  .use(express.static(__dirname + '/../client'));
+  .get('/', function (req, res) {
+    res.render('index.html', { user: req.user });
+  })
+  .use(express.static(__dirname + '/../client'))
+  .use('*', function (req, res) {
+    res.send('404 Not Found');
+  });
 
 io.on('connection', function (socket) {
 
