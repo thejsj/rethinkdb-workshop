@@ -9,18 +9,15 @@ var LocalStrategy = require('passport-local').Strategy;
 var r = require('../db');
 
 passport.serializeUser(function (user, done) {
-  console.log('serializeruser', user);
   return done(null, user.email);
 });
 
 passport.deserializeUser(function (email, done) {
-  console.log('deseriazlierUser');
   r
     .table('users')
     .get(email)
     .run(r.conn)
     .then(function (user) {
-      console.log('User', user);
       done(null, user);
     });
 });
@@ -52,7 +49,6 @@ passport.use(new LocalStrategy({
 ));
 
 passport.checkIfLoggedIn = function (req, res, next) {
-  console.log('Check if logged in');
   if (req.user) {
     return next();
   }

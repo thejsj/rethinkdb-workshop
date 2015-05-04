@@ -10,7 +10,6 @@ var authRouter = express.Router();
 authRouter.post('/signup', authControllers.signup);
 
 authRouter.use('/login', auth.authenticate('local'), function (req, res) {
-  console.log('/login authenticated');
   res.redirect('/');
 });
 

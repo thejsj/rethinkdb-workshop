@@ -71,9 +71,7 @@ io.on('connection', function (socket) {
         .then(function(cursor) {
           cursor.each(function (err, row) {
             socket.emit('message', row.new_val);
-          }, function () {
-            console.log('Finished');
-          });
+          }, function () { });
         });
     });
 

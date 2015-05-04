@@ -8,22 +8,17 @@
   MessageFactory.$inject = ['$http', '$state', '$q', '$rootScope'];
 
   function MessageFactory ($http, $state, $q, $rootScope) {
-    console.log('MessageFactory');
 
     var socket = io.connect('http://' + window.config.url + ':' + window.config.ports.http);
     var messageCollection = [];
 
-    //$rootScope.$watch(function () {
-      //return messageCollection;
-    //}, function (newVal, oldVal) {
-      //console.log(newVal, oldVal);
-      //return true;
-      ////return angular.equals(newVal, oldVal);
-    //});
-
+    socket.on('message', function (message) {
+      $rootScope.$apply(function () {
+        messageCollection.push(message);
+      });
+    });
 
     var factory = {
-      messageCollection: messageCollection,
       getMessageCollection: getMessageCollection,
       addMessage: addMessage,
     };
@@ -35,11 +30,8 @@
     function getMessageCollection() {
       return $http.get('/messages')
         .then(function (res) {
-          console.log('messages', res.data);
-          messageCollection = res.data;
-          socket.on('message', function (message) {
-            console.log('New Message', message);
-            messageCollection.push(message);
+          res.data.forEach(function (row) {
+            messageCollection.push(row);
           });
           return messageCollection;
         });

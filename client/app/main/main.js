@@ -5,12 +5,17 @@
   angular.module('rethinkDBWorkshop.messages', ['ui.router'])
     .controller('MessagesController', MessagesController);
 
-  MessagesController.$inject = ['$window', 'MessageFactory'];
+  MessagesController.$inject = ['$scope', '$window', 'MessageFactory'];
 
-  function MessagesController($window, MessageFactory) {
+  function MessagesController($scope, $window, MessageFactory) {
     var vm = this;
-    vm.messages = MessageFactory.messageCollection;
+    vm.messages = [];
     vm.submit = submit;
+
+    MessageFactory.getMessageCollection()
+     .then(function (coll) {
+       vm.messages = coll;
+     });
 
     function submit() {
       if (vm.text.length > 0) {
