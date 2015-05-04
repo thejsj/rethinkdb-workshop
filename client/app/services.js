@@ -39,7 +39,8 @@
 
     function addMessage(text) {
       socket.emit('message', {
-        text: text
+        text: text,
+        email: window.config.email
       });
     }
 

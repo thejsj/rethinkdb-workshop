@@ -7,7 +7,7 @@ var r = require('rethinkdb');
 require('rethinkdb-init')(r);
 
 // Create Tables
-r._init = r.init(config.get('rethinkdb'), [
+r.init(config.get('rethinkdb'), [
   {
     name: 'messages',
     indexes: ['created']

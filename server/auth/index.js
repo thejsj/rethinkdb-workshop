@@ -13,6 +13,22 @@ passport.serializeUser(function (user, done) {
 });
 
 passport.deserializeUser(function (email, done) {
+  /*!
+   * Query Instructions:
+   * Write a query that gets a user through by his email
+   * the `email` field is the table's primary key
+   * The result should be an object with the user email and password hash
+   * HINT: Don't use the filter method.
+   *
+   * Callback Instructions:
+   * Once the user has been returned, pass it to the `done` function as the
+   * second argument:
+   *   done(null, user);
+   *
+   * Result:
+   * Once you complete the 2 queries in the file, you'll be able to
+   * log in to the site.
+   */
   r
     .table('users')
     .get(email)

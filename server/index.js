@@ -6,7 +6,6 @@ var express = require('express');
 var session = require('express-session');
 var engines = require('consolidate');
 var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
 
 var app = express();
 var server = require('http').Server(app);
@@ -23,9 +22,6 @@ server.listen(config.get('ports').http);
 app
   .use(bodyParser.json())
   .use(bodyParser.urlencoded({ extended: true }))
-  .use(bodyParser.text())
-  .use(bodyParser.raw())
-  .use(cookieParser())
   .use(session({
     secret: 'zfnzkwjehgweghw',
     resave: false,
@@ -44,6 +40,19 @@ app
 app
   .use('/auth', authRouter)
   .use('/messages', function (req, res) {
+    /*!
+     * Query Instructions:
+     * Write a query that gets all messages,
+     * ordered by `created` (a secondary index)
+     *
+     * Callback Instructions:
+     * Return the messages array as a JSON document through `res`:
+     *   res.json(messages);
+     *
+     * Result:
+     * Once you have written this query, you'll be able to see
+     * all previously inserted messages when loading the page
+     */
     r.table('messages')
      .orderBy({index: 'created'})
      .coerceTo('array')
@@ -62,24 +71,50 @@ app
   });
 
 io.on('connection', function (socket) {
-
   // Listen to new message being inserted
-  r.connect(config.get('rethinkdb'))
-    .then(function (conn) {
-      r.table('messages')
-        .changes().run(conn)
-        .then(function(cursor) {
-          cursor.each(function (err, row) {
-            socket.emit('message', row.new_val);
-          }, function () { });
-        });
+  /*!
+   * Query Instructions:
+   * Write a query that listens to changes in the
+   * `messages` table
+   * HINT: the query will return a cursor, not an array
+   * HINT: The objects return by the cursor have a `new_val` and an `old_val` property
+   *
+   * Callback Instructions:
+   * Every time a change is pushed by the database, push that change to
+   * the client by emitting a socket event:
+   *   socket.emit('message', row.new_val);
+   *
+   * Result:
+   * Once you write this query, you'll be able to see new messages be displayed
+   * as they are being added
+   */
+  r.table('messages')
+    .changes().run(r.conn)
+    .then(function(cursor) {
+      cursor.each(function (err, row) {
+        socket.emit('message', row.new_val);
+      }, function () { });
     });
 
   // Insert new messages
   socket.on('message', function (data) {
+    /*!
+     * Query Instructions:
+     * Insert a document into the `messages` table with
+     * the following attributes: `text`, `email`, `created`
+     *
+     * Fields:
+     * text: A string with the message text from the user
+     * email: An email address that exists in the `users` table
+     * created: A Unix Timestamp `(new Date()).getTime()`
+     *
+     * Result:
+     * Once you write this query, you'll be able to insert new
+     * messages in the front-end and see them in the database
+     */
     r.table('messages').insert({
       text: data.text,
-      email: 'jorge.silva@thejsj.com',
+      email: data.email,
       created: (new Date()).getTime()
     }).run(r.conn);
   });
