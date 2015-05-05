@@ -16,8 +16,8 @@ var r = require('../db');
  */
 var doPasswordsMatch = function (submittedPassword, passwordInDatabase) {
   var compare = bluebird.promisify(bcrypt.compare);
-  return compare(submittedPassord, passwordInDatabase);
-}
+  return compare(submittedPassword, passwordInDatabase);
+};
 
 passport.serializeUser(function (user, done) {
   return done(null, user.email);
