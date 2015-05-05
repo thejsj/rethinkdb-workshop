@@ -80,42 +80,42 @@ following features:
 
 ### Step 1 : Creating user
 
-*Query instructions:*
+**Query instructions:**
 
 Write a query that checks if a user exists in the database and inserts a document with `email` and `password` if it doesn't and returns false if the use already exists
 
 HINT: Don't use the `filter` method
 ADVANCED: Try using the `branch` method
 
-*Result:*
+**Result:**
 
 Once you have completed this query correctly, you'll be able to sign up in the front-end and see the registered user in the database. You won't be able to sign in.
 
 ### Step 2.1 : Login
 
-*Query instructions:*
+**Query instructions:**
 
 Write a query that gets a user through by his email the `email` field is the table's primary key. The result should be an object with the user email and password hash
 
 HINT: Don't use the filter method.
 
-*Callback instructions:* 
+**Callback instructions:**
 
 Once the user has been returned, pass it to the `done` function as the second argument:
 ```
   done(null, user);
 ```
-*Result:*
+**Result:**
 
 Once you complete the 2 queries in this file, you'll be able to log in to the site.
 
 ### Step 2.2 : User login
 
-*Query instructions:*
+**Query instructions:**
 
 Write a query to get a user by their email
 
-*Callback instructions:*
+**Callback instructions:**
 
 Check to see if the user exists (is not `null`) and if the password submitted by the user matches the password in the database.
 
@@ -131,63 +131,63 @@ If the user is found, call `done` with `null`, and the user object
 ```
   done(null, user);
 ```
-*Result:*
+**Result:**
 
 After completing step 2.1 and this step, you'll be able to login with the created account.
 
 ### Step 3 : Inserting messages
 
-*Query instructions:*
+**Query instructions:**
 
 Insert a document into the `messages` table with the following attributes: `text`, `email`, `created`
 
-*Fields:*
+**Fields:**
 
 `text`: A string with the message text from the user
 `email`: An email address that exists in the `users` table
 `created`: A Unix Timestamp `(new Date()).getTime()`
 
-*Callback instructions:*
+**Callback instructions:**
 
 There is no need for a callback.
 
-*Result:*
+**Result:**
 
 Once you write this query, you'll be able to insert new messages in the front-end and see them in the database
 
 ### Step 4: Getting messages
 
-*Query instructions:*
+**Query instructions:**
 
 Write a query that gets all messages, ordered by `created` (a secondary index)
 
-*Callback instructions:*
+**Callback instructions:**
 
 Return the messages array as a JSON document through `res`:
 ```
   res.json(messages);
 ```
-*Result:*
+**Result:**
 
 Once you have written this query, you'll be able to see all previously inserted messages when loading the page
 
 ### Step 5 : listening for messages
 
-*Query instructions:*
+**Query instructions:**
 
 Write a query that listens to changes in the `messages` table.
 
 HINT: the query will return a cursor, not an array
 HINT: the objects return by the cursor have a `new_val` and an `old_val` property
 
-*Callback instructions:*
+**Callback instructions:**
 
 Every time a change is pushed by the database, push that change to the client by emitting a socket event:
 ```
   socket.emit('message', row.new_val);
 ```
 
-*Result:*
+**Result:**
 
 Once you write this query, you'll be able to see new messages be displayed as they are being added
 
