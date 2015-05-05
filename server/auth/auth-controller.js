@@ -16,7 +16,9 @@ authController.signup = function (req, res) {
   return cipher(password, null, null)
     .then(function (hash) {
       /*!
-       * Query Instructions:
+       * Step 1 : Creating user
+       *
+       * Query instructions:
        * Write a query that checks if a user exists in the database
        * and inserts a document with `email` and `password` if it
        * doesn't and returns false if the use already exists

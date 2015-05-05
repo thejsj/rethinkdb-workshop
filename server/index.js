@@ -1,6 +1,38 @@
 /*jshint node:true */
 'use strict';
 
+/* Instructions
+ *
+ * Complete all 5 steps to get the chat app working.
+ * Each step will involve writing a ReQL query to get a part of the app working.
+ *
+ * 1. Sign up: /server/auth/authcontroller.js:L18
+ * 2. Login (2.1 and 2.2): /server/auth/index.js:L28 and L29
+ * 3. Inserting messages: /server/index.js:116
+ * 4. Getting messages: /server/index.js:L55
+ * 5. Listening for messages: /server/index.js:L90
+ *
+ * After completing these 5 steps, your chat app will run correctly.
+ *
+ * If you get stuck:
+ *
+ * Don't spend more than 10 minutes on any step. If you get stuck, there
+ * are branches with the solutions for each step. Consult these branches
+ * and move on to the next one.
+ *
+ * Extra credit:
+ *
+ * If you finish with all steps, consider implementing some of the
+ * following features:
+ *
+ * 1. Adding rooms to chat app
+ * 2. Displaying users in room/chat
+ * 3. Add multiple nodes to the RethinkDB cluter
+ * 4. Add message search
+ * 5. Add message liking
+ * 6. Add the ability to delete messages
+ */
+
 var config = require('config');
 var express = require('express');
 var session = require('express-session');
@@ -39,13 +71,15 @@ app
 // Routes
 app
   .use('/auth', authRouter)
-  .use('/messages', function (req, res) {
+  .get('/messages', function (req, res) {
     /*!
-     * Query Instructions:
+     * Step 4: Getting messages
+     *
+     * Query instructions:
      * Write a query that gets all messages,
      * ordered by `created` (a secondary index)
      *
-     * Callback Instructions:
+     * Callback instructions:
      * Return the messages array as a JSON document through `res`:
      *   res.json(messages);
      *
@@ -73,7 +107,9 @@ app
 io.on('connection', function (socket) {
   // Listen to new message being inserted
   /*!
-   * Query Instructions:
+   * Step 5 : Listening for messages
+   *
+   * Query instructions:
    * Write a query that listens to changes in the
    * `messages` table
    * HINT: the query will return a cursor, not an array
@@ -99,7 +135,9 @@ io.on('connection', function (socket) {
   // Insert new messages
   socket.on('message', function (data) {
     /*!
-     * Query Instructions:
+     * Step 3 : Inserting messages
+     *
+     * Query instructions:
      * Insert a document into the `messages` table with
      * the following attributes: `text`, `email`, `created`
      *
@@ -107,6 +145,9 @@ io.on('connection', function (socket) {
      * text: A string with the message text from the user
      * email: An email address that exists in the `users` table
      * created: A Unix Timestamp `(new Date()).getTime()`
+     *
+     * Callback instructions:
+     * There is no need for a callback.
      *
      * Result:
      * Once you write this query, you'll be able to insert new

@@ -4,7 +4,7 @@
 ## Setup
 ```
 r.dbCreate('rethinkdb_workshop')
-r.db('rethinkdb_workshop').table('reddit')
+r.db('rethinkdb_workshop').tableCreate('reddit')
 ```
 
 After that, copy paste this command into the Data explorer. It’s a complicated query, so don’t worry to much about understanding what’s going on.
