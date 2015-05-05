@@ -24,26 +24,26 @@ npm install
 
 ### #2 Creating database tables, and indexes
 
-Go to the data explorer (`http://localhost:8080/#dataexplorer`) and run the following commands. 
+Go to the data explorer (`http://localhost:8080/#dataexplorer`) and run the following commands.
 
 *This step is optional, since the node app wil create these automatically*
 
 Create the database:
 
 ```
-r.dbCreate(`rethinkdb_workshop`);
+r.dbCreate("rethinkdb_workshop");
 ```
 Create the `messages` table:
 ```
-r.db(`rethinkdb_workshop`).tableCreate(`messages`);
+r.db("rethinkdb_workshop").tableCreate("messages");
 ```
 Create the `users` table with `email` as the primary key:
 ````
-r.db(`rethinkdb_workshop`).tableCreate(`users`, { primaryKey: email });
+r.db("rethinkdb_workshop").tableCreate("users", { primaryKey: "email" });
 ```
 Create a `created` secondary index on the `messages` table:
 ```
-r.db(`rethinkdb_workshop`).table(`messages`).indexCreate(`created`);
+r.db("rethinkdb_workshop").table("messages").indexCreate("created");
 ```
 ## Instructions
 
@@ -69,8 +69,7 @@ and move on to the next one.
 
 **Extra credit:**
 
-If you finish with all steps, consider implementing some of the
-following features:
+If you finish with all steps, consider implementing some of the following features:
 
 1. Adding rooms to chat app
 2. Displaying users in room/chat
