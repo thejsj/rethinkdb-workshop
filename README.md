@@ -47,10 +47,11 @@ r.db(`rethinkdb_workshop`).table(`messages`).indexCreate(`created`);
 ```
 ## Instructions
 
+**To get started, take a look at the instructions in the server/index.js file**
+
 After starting node and creating the necessary tables, you can now start writing ReQL queries to complete the excercise.
 
-Complete all 5 steps to get the chat app working.
-Each step will involve writing a ReQL query to get a part of the app working.
+Complete all 5 steps to get the chat app working. Each step will involve writing a ReQL query to get a part of the app working.
 
 1. Sign up: /server/auth/authcontroller.js:L18
 2. Login (2.1 and 2.2): /server/auth/index.js:L28 and L29
@@ -60,13 +61,13 @@ Each step will involve writing a ReQL query to get a part of the app working.
 
 After completing these 5 steps, your chat app will run correctly.
 
-If you get stuck:
+**If you get stuck**:
 
 Don't spend more than 10 minutes on any step. If you get stuck, there
 are branches with the solutions for each step. Consult these branches
 and move on to the next one.
 
-Extra credit:
+**Extra credit:**
 
 If you finish with all steps, consider implementing some of the
 following features:
