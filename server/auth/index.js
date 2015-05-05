@@ -6,7 +6,9 @@ var passport = require('passport');
 var bcrypt = require('bcrypt-nodejs');
 var bluebird = require('bluebird');
 var LocalStrategy = require('passport-local').Strategy;
+
 var r = require('../db');
+var conn = require('../connection'); // Our RethinkDB connection
 
 /*!
  * Compare passwords and see if the match

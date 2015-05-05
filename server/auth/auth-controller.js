@@ -1,8 +1,11 @@
 /*jshint node:true */
 'use strict';
-var r = require('../db');
 var bcrypt = require('bcrypt-nodejs');
 var bluebird = require('bluebird');
+
+var r = require('../db');
+var conn = require('../connection'); // Our RethinkDB connection
+
 var authController = {};
 
 authController.signup = function (req, res) {

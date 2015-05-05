@@ -43,6 +43,7 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var r = require('./db');
+var conn = require('./connection'); // Our RethinkDB connection
 var clientConfigParser = require('./clientConfigParser');
 
 var auth = require('./auth');
@@ -142,9 +143,11 @@ io.on('connection', function (socket) {
      * the following attributes: `text`, `email`, `created`
      *
      * Fields:
-     * text: A string with the message text from the user
-     * email: An email address that exists in the `users` table
-     * created: A Unix Timestamp `(new Date()).getTime()`
+     * {
+     *   'text': 'Hello world', // A string with the message text from the user
+     *   'email':  'jorge@rethinkdb.com' An email address that exists in the `users` table
+     *   'created': A Unix Timestamp `(new Date()).getTime()`
+     * The data object has a `text` field and an `email` field.
      *
      * Callback instructions:
      * There is no need for a callback.
