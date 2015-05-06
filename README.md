@@ -63,9 +63,7 @@ After completing these 5 steps, your chat app will run correctly.
 
 **If you get stuck**:
 
-Don't spend more than 10 minutes on any step. If you get stuck, there
-are branches with the solutions for each step. Consult these branches
-and move on to the next one.
+Don't spend more than 10 minutes on any step. If you get stuck, there are branches with the solutions for each step. Consult these branches and move on to the next one.
 
 **Extra credit:**
 
@@ -84,8 +82,8 @@ If you finish with all steps, consider implementing some of the following featur
 
 Write a query that checks if a user exists in the database and inserts a document with `email` and `password` if it doesn't and returns false if the use already exists
 
-HINT: Don't use the `filter` method
-ADVANCED: Try using the `branch` method
+HINT: Don't use the [`filter`](http://rethinkdb.com/api/javascript/filter/) method
+ADVANCED: Try using the [`branch`](http://rethinkdb.com/api/javascript/branch/) method
 
 **Result:**
 
@@ -97,7 +95,7 @@ Once you have completed this query correctly, you'll be able to sign up in the f
 
 Write a query that gets a user through by his email the `email` field is the table's primary key. The result should be an object with the user email and password hash
 
-HINT: Don't use the filter method.
+HINT: Don't use the [`filter`](http://rethinkdb.com/api/javascript/filter/) method
 
 **Callback instructions:**
 
@@ -146,6 +144,7 @@ Insert a document into the `messages` table with the following attributes: `text
 `text`: A string with the message text from the user
 `email`: An email address that exists in the `users` table
 `created`: A Unix Timestamp `(new Date()).getTime()`
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTime
 
 **Callback instructions:**
 
@@ -179,6 +178,8 @@ Write a query that listens to changes in the `messages` table.
 
 HINT: the query will return a cursor, not an array
 HINT: the objects return by the cursor have a `new_val` and an `old_val` property
+
+[http://rethinkdb.com/docs/changefeeds/javascript/](http://rethinkdb.com/docs/changefeeds/javascript/)
 
 **Callback instructions:**
 
