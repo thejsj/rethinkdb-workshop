@@ -55,9 +55,9 @@ Complete all 5 steps to get the chat app working. Each step will involve writing
 
 1. Sign up: [/server/auth/authcontroller.js:L20](https://github.com/thejsj/rethinkdb-workshop/blob/master/server/auth/auth-controller.js#L20)
 2. Login (2.1 and 2.2): [/server/auth/index.js:L28 and L29](https://github.com/thejsj/rethinkdb-workshop/blob/master/server/auth/index.js#L28)
-3. Inserting messages: [/server/index.js:116](https://github.com/thejsj/rethinkdb-workshop/blob/master/server/index.js#L138)
+3. Inserting messages: [/server/index.js:116](https://github.com/thejsj/rethinkdb-workshop/blob/master/server/index.js#L124)
 4. Getting messages: [/server/index.js:L55](https://github.com/thejsj/rethinkdb-workshop/blob/master/server/index.js#L76)
-5. Listening for messages: [/server/index.js:L90](https://github.com/thejsj/rethinkdb-workshop/blob/master/server/index.js#L110)
+5. Listening for messages: [/server/index.js:L90](https://github.com/thejsj/rethinkdb-workshop/blob/master/server/index.js#L103)
 
 After completing these 5 steps, your chat app will run correctly.
 
