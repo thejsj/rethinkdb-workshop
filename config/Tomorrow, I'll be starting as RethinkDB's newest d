@@ -1,0 +1,91 @@
+Tomorrow, I'll be starting as RethinkDB's newest developer evangelist. While I had read a lot on RethinkDB and played around with it quite a bit, I had never actually built anything with it. For that reason, I decided to build a simple chat app using node.js, RethinkDB, socket.io, and React.js.
+
+In this blog post, I'll show how my chat app handles incoming messages and some of the things I liked about RethinkDB specifically.
+
+## A Chat App Using RethinkDB
+
+{<2>}![RethinkDB Sample Chat Application](/content/images/2015/03/output.gif)
+
+This app could not be simpler and RethinkDB makes it even simpler. When the user enters the app, he will get prompted for his name. At that point, the client establishes a socket connection and starts listening for new messages. When a new message comes in, it is added to the array of messages in the client and React.js re-renders the whole app.
+
+The interesting part about all this is that the database serves as main source of truth at all times. For example, when a message is created on the client-side, the server just adds it to the database:
+
+```
+  // Insert new messages
+  socket.on('message', function (data) {
+    r.table('messages').insert({
+      message: data.message,
+      user: data.userName,
+      created: (new Date()).getTime()
+    }).run();
+  });
+```
+Then, at the same time, the database is listening to changes on the messages table to push them to the client.
+
+```
+  // Listen to new message being inserted
+  r.table('messages').changes().run()
+    .then(function(cursor) {
+      cursor.each(function (err, row) {
+        socket.emit('message', row.new_val);
+      });
+    })
+    .catch(function (err) {
+      console.log('err', err);
+    });
+```
+
+## What I like about RethinkDB
+
+After making this sample app, there are a couple of things I *really* liked about RethinkDB that really set it apart from any other database I've ever used.
+
+##### ReQL: RethinkDB's Query Language
+
+A database is only as good as it's query language. For a developer, the query language is basically the UI to the database. Thankfully, ReQL (RethinkDB's query language) does not disappoint.
+
+Usually, when building anything, I try to stay away from interacting with the database directly. In SQL, it always seems like my queries are flimsy or bug-prone. The mental model for querying the database is very different from how you interact with the data programmatically. Often times, when writing queries, I just get a huge chunk of data and then interact with through programming. Was this caused by my lack of expertise in SQL? Certainly! But the learning curve always feels too steep to prevent me from just relying on a good ORM.
+
+With MongoDB, I have the opposite problem. I feel comfortable querying the database directly and understood the concept of documents fairly well. Yet, MongoDB's querying capabilities feel very limited. I end up querying the database and then manipulating my data in order to get the data into shape.
+
+With ReQL (can you see where I'm going here?), you get the best of both worlds. The database is easy to query and un-intimidating, but the query language is very powerful. Rather than writing 'queries', RethinkDB feels more like programming with data, much like you would interact with data with something like underscore/lodash or the standard library in python.
+
+##### Changesfeeds: Listening to Realtime Changes in Your Data
+
+ReQL is incredibly cool, but ultimately, the experience of using it is not THAT different from other databases. The one feature that makes RethinkDB really special is changefeeds. But, what are changefeeds?
+
+In ReQL I can query the database and have a promise (in JavaScript) that's fired when that query is done.
+
+```
+r.db('rethink_chat').table('messages')
+  .filter(r.row('created').ge(1424457572100))
+  .run(conn)
+  .then(function (results) {
+    // This will fire then our query comes back
+  }):
+```
+
+In RDB, you can have exactly the same query and just add `.changes()` to it.
+
+```
+r.db('rethink_chat').table('messages')
+  .filter(r.row('created').ge(1424457572100))
+  .changes()
+  .run(conn)
+  .then(function (cursor) {
+    // This will fire once and return a cursor
+    cursor.each(function (err, row) {
+      // this row has changed
+    });
+  }):
+```
+This single function has the potential to totally change how realtime applications are built. The feature prevents some of the common pitfalls of building realtime apps, where developers have to be either polling the database or writing complex abstractions to keep track of changing data.
+
+##### Admin View: Why would I use this? Oh, wait. This is pretty awesome
+
+{<5>}![RethinkDB Admin View](/content/images/2015/03/RethinkDB-Web-Admin-View.png)
+
+When I first read about this feature, I wasn't too excited about it. Why would I use the admin view when I can just use the command line? Turns out, I have been using the admin view (specifically the data explorer) a LOT! Before writing a query into my code, I usually test it on the admin view and play around with. It's a really nice way to learn ReQL and how RethinkDB works in general. It’s also a pleasure to use.
+
+## Final Thoughts
+
+RethinkDB has a lot to offer and has a surprisingly low barrier to entry for anyone who's already familiar with programming. The query language is very simple, yet powerful. The `.changes` feed is obviously a game-changer and it'll be very interesting to see what people build with it. As I start getting deeper and deeper into RethinkDB, I'm sure I'll be able to not only build a lot of cool stuff, but also change the way in which I build software.
