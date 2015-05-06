@@ -44,6 +44,25 @@ r.db('rethinkdb_workshop').table('reddit').indexCreate('superScore', function (r
 r.db('rethinkdb_workshop').table('reddit').orderBy({ index: r.desc('superScore') }).pluck('title', 'score')
 ```
 
+## Query Composition
+
+For query composition, we'll use Python instead of JavaScript.
+
+```python
+import rethinkdb as r
+conn = r.connect()
+reddit = r.db('rethinkdb_workshop').table('reddit')
+redditPluck = reddit.pluck('title', 'score')
+# Run that query
+redditPluck.run(conn)
+# Run that query again
+redditPluck.run(conn)
+
+# Create a function that builds a query dynamically
+def getPluckQuery(properties):
+  return reddit.pluck(*properties)
+```
+
 ## Using Changefeeds
 
 ```

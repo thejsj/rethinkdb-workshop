@@ -43,7 +43,6 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var r = require('./db');
-var conn = require('./connection'); // Our RethinkDB connection
 var clientConfigParser = require('./clientConfigParser');
 
 var auth = require('./auth');

@@ -2,9 +2,7 @@
 'use strict';
 var bcrypt = require('bcrypt-nodejs');
 var bluebird = require('bluebird');
-
 var r = require('../db');
-var conn = require('../connection'); // Our RethinkDB connection
 
 var authController = {};
 
