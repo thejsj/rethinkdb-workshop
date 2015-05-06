@@ -42,13 +42,6 @@ passport.deserializeUser(function (email, done) {
    * Once you complete the 2 queries in this file, you'll be able to
    * log in to the site.
    */
-  r
-    .table('users')
-    .get(email)
-    .run(r.conn)
-    .then(function (user) {
-      done(null, user);
-    });
 });
 
 // Local
@@ -76,24 +69,6 @@ passport.use(new LocalStrategy({
    * After completing step 2.1 and this step, you'll be able
    * to login with the created account.
    */
-   r.table('users')
-    .get(email)
-    .run(r.conn)
-    .then(function (user) {
-      if (!user || user === null) {
-        done(null, false);
-        return;
-      }
-      return doPasswordsMatch(password, user.password)
-        .then(function (isMatch) {
-          if (!isMatch)  {
-            done(null, false);
-            return;
-          }
-          done(null, user);
-        });
-    })
-    .catch(done);
   }
 ));
 
