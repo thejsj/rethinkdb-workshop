@@ -69,5 +69,5 @@ def getPluckQuery(properties):
 //Get the top three entries
 r.db('rethinkdb_workshop').table('reddit').orderBy({ index: r.desc('superScore') }).limit(3).changes()
 // Add the pluck again
-r.db('rethinkdb_workshop').table('reddit').orderBy({ index: r.desc('superScore') }).limit(3).changes().pluck('title', 'score')
+r.db('rethinkdb_workshop').table('reddit').orderBy({ index: r.desc('superScore') }).limit(3).changes()('new_val').pluck('title', 'score')
 ```
