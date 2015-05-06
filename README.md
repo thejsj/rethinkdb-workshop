@@ -63,7 +63,7 @@ After completing these 5 steps, your chat app will run correctly.
 
 **If you get stuck**:
 
-Don't spend more than 10 minutes on any step. If you get stuck, there are branches with the solutions for each step. Consult these branches and move on to the next one.
+Don't spend more than **10 minutes** on any single step. If you get stuck, there are branches with the solutions for each step. Consult these branches and move on to the next one.
 
 **Extra credit:**
 
