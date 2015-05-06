@@ -1,1 +1,3 @@
-[{"created":1430924523231,"email":"jorge@rethinkdb.com","id":"c01c7b1e-6643-436e-89b2-7f1342fa68b6","text":"Welcome to our chat app!"},{"created":1430924531285,"email":"jorge@rethinkdb.com","id":"7766a1fa-6a17-42f8-a520-f7c304b6d402","text":"How are you enjoying RethinkDB?"}]
+{
+  "messages": [{"created":1430924523231,"email":"jorge@rethinkdb.com","id":"c01c7b1e-6643-436e-89b2-7f1342fa68b6","text":"Welcome to our chat app!"},{"created":1430924531285,"email":"jorge@rethinkdb.com","id":"7766a1fa-6a17-42f8-a520-f7c304b6d402","text":"How are you enjoying RethinkDB?"}]
+}
