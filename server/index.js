@@ -87,13 +87,6 @@ app
      * Once you have written this query, you'll be able to see
      * all previously inserted messages when loading the page
      */
-    r.table('messages')
-     .orderBy({index: 'created'})
-     .coerceTo('array')
-     .run(r.conn)
-     .then(function (messages) {
-       res.json(messages);
-     });
   })
   .use('/config.js', clientConfigParser)
   .get('/', function (req, res) {
