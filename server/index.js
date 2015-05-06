@@ -141,11 +141,6 @@ io.on('connection', function (socket) {
      * Once you write this query, you'll be able to insert new
      * messages in the front-end and see them in the database
      */
-    r.table('messages').insert({
-      text: data.text,
-      email: data.email,
-      created: (new Date()).getTime()
-    }).run(r.conn);
   });
 
 });
