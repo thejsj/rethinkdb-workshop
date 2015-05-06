@@ -32,14 +32,6 @@ authController.signup = function (req, res) {
        * to sign up in the front-end and see the registered user
        * in the database. You won't be able to sign in.
        */
-      return r.branch(
-        r.table('users').get(email),
-        false,
-        r.table('users').insert({
-          email: email,
-          password: hash
-        })
-      ).run(r.conn);
     })
     .then(function (result) {
        if (!result) res.send('User already exists');
