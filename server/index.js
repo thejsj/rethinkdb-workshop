@@ -124,13 +124,6 @@ io.on('connection', function (socket) {
    * once you write this query, you'll be able to see new messages be displayed
    * as they are being added
    */
-  r.table('messages')
-    .changes().run(r.conn)
-    .then(function(cursor) {
-      cursor.each(function (err, row) {
-        socket.emit('message', row.new_val);
-      }, function () { });
-    });
 
   // Insert new messages
   socket.on('message', function (data) {
