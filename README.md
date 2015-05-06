@@ -26,7 +26,7 @@ npm install
 
 Go to the data explorer (`http://localhost:8080/#dataexplorer`) and run the following commands.
 
-*This step is optional, since the node app wil create these automatically*
+**This step is optional, since the node app wil create these automatically**
 
 Create the database:
 
@@ -53,11 +53,11 @@ After starting node and creating the necessary tables, you can now start writing
 
 Complete all 5 steps to get the chat app working. Each step will involve writing a ReQL query to get a part of the app working.
 
-1. Sign up: /server/auth/authcontroller.js:L18
-2. Login (2.1 and 2.2): /server/auth/index.js:L28 and L29
-3. Inserting messages: /server/index.js:116
-4. Getting messages: /server/index.js:L55
-5. Listening for messages: /server/index.js:L90
+1. Sign up: [/server/auth/authcontroller.js:L20](https://github.com/thejsj/rethinkdb-workshop/blob/master/server/auth/auth-controller.js#L20)
+2. Login (2.1 and 2.2): [/server/auth/index.js:L28 and L29](https://github.com/thejsj/rethinkdb-workshop/blob/master/server/auth/index.js#L28)
+3. Inserting messages: [/server/index.js:116](https://github.com/thejsj/rethinkdb-workshop/blob/master/server/index.js#L138)
+4. Getting messages: [/server/index.js:L55](https://github.com/thejsj/rethinkdb-workshop/blob/master/server/index.js#L76)
+5. Listening for messages: [/server/index.js:L90](https://github.com/thejsj/rethinkdb-workshop/blob/master/server/index.js#L110)
 
 After completing these 5 steps, your chat app will run correctly.
 
@@ -144,6 +144,7 @@ Insert a document into the `messages` table with the following attributes: `text
 `text`: A string with the message text from the user
 `email`: An email address that exists in the `users` table
 `created`: A Unix Timestamp `(new Date()).getTime()`
+
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTime
 
 **Callback instructions:**
