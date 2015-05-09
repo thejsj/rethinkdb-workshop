@@ -5,9 +5,7 @@ Learn the basics of RethinkDB and ReQL(RethinkDB query language) through buildin
 
 This repo teaches you the basics of ReQL by having the user write ReQL queries to get this chat app to work.
 
-## Setup
-
-### #1 Install RethinkDB and Node.js
+## Setup: Install RethinkDB and Node.js
 
 If using *Mac*:
 
@@ -16,10 +14,19 @@ brew install rethinkdb
 brew install node
 ```
 
-After install RethinkDB and Node.js, go the root directory of the repo and install all dependencies.
+After installing RethinkDB and Node.js, go the root directory of the repo and install all dependencies.
 
 ```
 npm install
+```
+
+You can now run the node server using the following command:
+
+```
+# Mac and Linux
+npm run dev
+# Windows
+node server
 ```
 
 # Instructions
@@ -111,14 +118,4 @@ Every time a change is pushed by the database, push that change to the client by
 
 Once you write this query, you'll be able to see new messages be displayed as they are being added
 
-### Running Node
-
-Run the node server using the following command:
-
-```
-# Mac and Linux
-npm run dev
-# Windows
-node server
-```
 
