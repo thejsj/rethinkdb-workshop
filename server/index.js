@@ -112,6 +112,8 @@ io.on('connection', function (socket) {
    * hint: the query will return a cursor, not an array
    * hint: the objects return by the cursor have a `new_val` and an `old_val` property
    *
+   * Instead of using `r.conn` as your connection, create a new connection with r.connect
+   *
    * callback instructions:
    * every time a change is pushed by the database, push that change to
    * the client by emitting a socket event:
@@ -121,12 +123,15 @@ io.on('connection', function (socket) {
    * once you write this query, you'll be able to see new messages be displayed
    * as they are being added
    */
-  r.table('messages')
-    .changes().run(r.conn, function (err, cursor) {
-      cursor.each(function (err, row) {
-        socket.emit('message', row.new_val);
-      }, function () { });
-    });
+  r.connect(config.get('rethinkdb'), function (err, conn) {
+    if (err) console.log(err);
+    r.table('messages')
+      .changes().run(conn, function (err, cursor) {
+        cursor.each(function (err, row) {
+          socket.emit('message', row.new_val);
+        }, function () { });
+      });
+  });
 
   // Insert new messages
   socket.on('message', function (data) {
