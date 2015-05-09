@@ -24,7 +24,10 @@ authController.signup = function (req, res) {
           password: hash
         })
       ).run(r.conn, function (result) {
-        if (!result) res.send('User already exists');
+        if (!result) {
+          res.send('User already exists');
+          return;
+        }
         res.send('User ' + email + ' created.');
       });
     });
