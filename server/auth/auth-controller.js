@@ -26,7 +26,9 @@ authController.signup = function (req, res) {
       ).run(r.conn);
     })
     .then(function (result) {
-       if (!result) res.send('User already exists');
+       if (!result)  {
+         res.send('User already exists');
+       }
        res.send('User ' + email + ' created.');
     });
 };
