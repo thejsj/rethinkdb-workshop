@@ -51,15 +51,13 @@ r.db("rethinkdb_workshop").table("messages").indexCreate("created");
 
 After starting node and creating the necessary tables, you can now start writing ReQL queries to complete the excercise.
 
-Complete all 5 steps to get the chat app working. Each step will involve writing a ReQL query to get a part of the app working.
+Complete all 3 steps to get the chat app working. Each step will involve writing a ReQL query to get a part of the app working.
 
-1. Sign up: [/server/auth/authcontroller.js:L20](https://github.com/thejsj/rethinkdb-workshop/blob/master/server/auth/auth-controller.js#L20)
-2. Login (2.1 and 2.2): [/server/auth/index.js:L28 and L29](https://github.com/thejsj/rethinkdb-workshop/blob/master/server/auth/index.js#L28)
-3. Inserting messages: [/server/index.js:116](https://github.com/thejsj/rethinkdb-workshop/blob/master/server/index.js#L138)
-4. Getting messages: [/server/index.js:L55](https://github.com/thejsj/rethinkdb-workshop/blob/master/server/index.js#L76)
-5. Listening for messages: [/server/index.js:L90](https://github.com/thejsj/rethinkdb-workshop/blob/master/server/index.js#L110)
+1. Inserting messages: [/server/index.js:116](https://github.com/thejsj/rethinkdb-workshop/blob/master/server/index.js#L138)
+2. Getting messages: [/server/index.js:L55](https://github.com/thejsj/rethinkdb-workshop/blob/master/server/index.js#L76)
+3. Listening for messages: [/server/index.js:L90](https://github.com/thejsj/rethinkdb-workshop/blob/master/server/index.js#L110)
 
-After completing these 5 steps, your chat app will run correctly.
+After completing these 3 steps, your chat app will run correctly.
 
 **If you get stuck**:
 
@@ -76,64 +74,7 @@ If you finish with all steps, consider implementing some of the following featur
 5. Add message liking
 6. Add the ability to delete messages
 
-### Step 1 : Creating user
-
-**Query instructions:**
-
-Write a query that checks if a user exists in the database and inserts a document with `email` and `password` if it doesn't and returns false if the use already exists
-
-HINT: Don't use the [`filter`](http://rethinkdb.com/api/javascript/filter/) method
-ADVANCED: Try using the [`branch`](http://rethinkdb.com/api/javascript/branch/) method
-
-**Result:**
-
-Once you have completed this query correctly, you'll be able to sign up in the front-end and see the registered user in the database. You won't be able to sign in.
-
-### Step 2.1 : Login
-
-**Query instructions:**
-
-Write a query that gets a user through by his email the `email` field is the table's primary key. The result should be an object with the user email and password hash
-
-HINT: Don't use the [`filter`](http://rethinkdb.com/api/javascript/filter/) method
-
-**Callback instructions:**
-
-Once the user has been returned, pass it to the `done` function as the second argument:
-```
-  done(null, user);
-```
-**Result:**
-
-Once you complete the 2 queries in this file, you'll be able to log in to the site.
-
-### Step 2.2 : User login
-
-**Query instructions:**
-
-Write a query to get a user by their email
-
-**Callback instructions:**
-
-Check to see if the user exists (is not `null`) and if the password submitted by the user matches the password in the database.
-
-If the user is null, call `done` with `null` and `false`
-```
-  done(null, false);
-```
-If the passwords dont match, call `done` with `null` and `false`
-```
-  done(null, false);
-```
-If the user is found, call `done` with `null`, and the user object
-```
-  done(null, user);
-```
-**Result:**
-
-After completing step 2.1 and this step, you'll be able to login with the created account.
-
-### Step 3 : Inserting messages
+### Step 1 : Inserting messages
 
 **Query instructions:**
 
@@ -155,7 +96,7 @@ There is no need for a callback.
 
 Once you write this query, you'll be able to insert new messages in the front-end and see them in the database
 
-### Step 4: Getting messages
+### Step 2: Getting messages
 
 **Query instructions:**
 
@@ -171,7 +112,7 @@ Return the messages array as a JSON document through `res`:
 
 Once you have written this query, you'll be able to see all previously inserted messages when loading the page
 
-### Step 5 : listening for messages
+### Step 3 : listening for messages
 
 **Query instructions:**
 
