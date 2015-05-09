@@ -13,14 +13,14 @@ After that, copy paste this command into the Data explorer. It’s a complicated
 ````
 r.db('GITHUB_HANDLE_rethinkdb_workshop').table('reddit').insert(r.http('http://www.reddit.com/r/javascript.json')('data')('children').map(r.row('data').pluck('title', 'num_comments', 'ups', 'downs', 'id', 'score')))
 ```
-## Running Queries
+### Running Queries
 
 Here are some queries you can run:
 ```
 // Get all entries over 18
 r.db('GITHUB_HANDLE_rethinkdb_workshop').table('reddit').filter({ over_18: true })
 // Delete all entries over 18
-r.db(‘GITHUB_HANDLE_rethinkdb_workshop’).table(‘reddit’).filter({ over_18: true }).delete()
+r.db(‘GITHUB_HANDLE_rethinkdb_workshop’).table('reddit').filter({ over_18: true }).delete()
 // Get the sum of all scores
 r.db('GITHUB_HANDLE_rethinkdb_workshop').table('reddit').sum('score')
 // Get the average of all scores
@@ -31,9 +31,24 @@ r.db('GITHUB_HANDLE_rethinkdb_workshop').table('reddit').orderBy('num_comments')
 r.db('GITHUB_HANDLE_rethinkdb_workshop').table('reddit').orderBy('num_comments').pluck('title', 'num_comments')
 // Order reddits by number of comments in descending order
 r.db('GITHUB_HANDLE_rethinkdb_workshop').table('reddit').orderBy(r.desc('num_comments')).pluck('title', 'num_comments')
+// Creating an index
+r.db('GITHUB_HANDLE_rethinkdb_workshop').table('reddit').indexCreate('score');
+// Get all by score
+r.db('GITHUB_HANDLE_rethinkdb_workshop').table('reddit').getAll(0, { index: 'score' });
 ```
 
-## Running Queries #2
+### Using Changefeeds
+
+```
+//Get the top three entries
+r.db('GITHUB_HANDLE_rethinkdb_workshop').table('reddit').orderBy({ index: r.desc('score') }).limit(3).changes()
+// Add the pluck again
+r.db('GITHUB_HANDLE_rethinkdb_workshop').table('reddit').orderBy({ index: r.desc('score') }).limit(3).changes().pluck('title', 'score')
+```
+
+## Extra Credit
+
+### Running Queries #2
 
 ```
 // Get all the entries with media
@@ -46,7 +61,7 @@ r.db('GITHUB_HANDLE_rethinkdb_workshop').table('reddit').indexCreate('superScore
 r.db('GITHUB_HANDLE_rethinkdb_workshop').table('reddit').orderBy({ index: r.desc('superScore') }).pluck('title', 'score')
 ```
 
-## Query Composition
+### Query Composition
 
 For query composition, we'll use Python instead of JavaScript.
 
@@ -65,11 +80,4 @@ def getPluckQuery(properties):
   return reddit.pluck(*properties)
 ```
 
-## Using Changefeeds
 
-```
-//Get the top three entries
-r.db('GITHUB_HANDLE_rethinkdb_workshop').table('reddit').orderBy({ index: r.desc('superScore') }).limit(3).changes()
-// Add the pluck again
-r.db('GITHUB_HANDLE_rethinkdb_workshop').table('reddit').orderBy({ index: r.desc('superScore') }).limit(3).changes().pluck('title', 'score')
-```
