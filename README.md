@@ -22,30 +22,7 @@ After install RethinkDB and Node.js, go the root directory of the repo and insta
 npm install
 ```
 
-### #2 Creating database tables, and indexes
-
-Go to the data explorer (`http://localhost:8080/#dataexplorer`) and run the following commands.
-
-**This step is optional, since the node app wil create these automatically**
-
-Create the database:
-
-```
-r.dbCreate("rethinkdb_workshop");
-```
-Create the `messages` table:
-```
-r.db("rethinkdb_workshop").tableCreate("messages");
-```
-Create the `users` table with `email` as the primary key:
-````
-r.db("rethinkdb_workshop").tableCreate("users", { primaryKey: "email" });
-```
-Create a `created` secondary index on the `messages` table:
-```
-r.db("rethinkdb_workshop").table("messages").indexCreate("created");
-```
-## Instructions
+# Instructions
 
 **To get started, take a look at the instructions in the server/index.js file**
 
