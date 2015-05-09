@@ -85,13 +85,6 @@ app
      * Once you have written this query, you'll be able to see
      * all previously inserted messages when loading the page
      */
-    r.table('messages')
-     .orderBy({index: 'created'})
-     .coerceTo('array')
-     .run(r.conn)
-     .then(function (messages) {
-       res.json(messages);
-     });
   })
   .use('/config.js', clientConfigParser)
   .get('/', function (req, res) {
@@ -122,13 +115,6 @@ io.on('connection', function (socket) {
    * once you write this query, you'll be able to see new messages be displayed
    * as they are being added
    */
-  r.table('messages')
-    .changes().run(r.conn)
-    .then(function(cursor) {
-      cursor.each(function (err, row) {
-        socket.emit('message', row.new_val);
-      }, function () { });
-    });
 
   // Insert new messages
   socket.on('message', function (data) {
@@ -153,11 +139,6 @@ io.on('connection', function (socket) {
      * Once you write this query, you'll be able to insert new
      * messages in the front-end and see them in the database
      */
-    r.table('messages').insert({
-      text: data.text,
-      email: data.email,
-      created: (new Date()).getTime()
-    }).run(r.conn);
   });
 
 });
