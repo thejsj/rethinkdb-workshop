@@ -88,8 +88,7 @@ app
     r.table('messages')
      .orderBy({index: 'created'})
      .coerceTo('array')
-     .run(r.conn)
-     .then(function (messages) {
+     .run(r.conn, function (err, messages) {
        res.json(messages);
      });
   })
@@ -123,8 +122,7 @@ io.on('connection', function (socket) {
    * as they are being added
    */
   r.table('messages')
-    .changes().run(r.conn)
-    .then(function(cursor) {
+    .changes().run(r.conn, function (err, cursor) {
       cursor.each(function (err, row) {
         socket.emit('message', row.new_val);
       }, function () { });

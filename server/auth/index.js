@@ -27,9 +27,8 @@ passport.deserializeUser(function (email, done) {
   r
     .table('users')
     .get(email)
-    .run(r.conn)
-    .then(function (user) {
-      done(null, user);
+    .run(r.conn, function (err, user) {
+      done(err, user);
     });
 });
 
@@ -39,8 +38,8 @@ passport.use(new LocalStrategy({
 }, function(email, password, done) {
    r.table('users')
     .get(email)
-    .run(r.conn)
-    .then(function (user) {
+    .run(r.conn, function (err, user) {
+      if (err) done(err, user);
       if (!user || user === null) {
         done(null, false);
         return;
@@ -53,8 +52,7 @@ passport.use(new LocalStrategy({
           }
           done(null, user);
         });
-    })
-    .catch(done);
+    });
   }
 ));
 

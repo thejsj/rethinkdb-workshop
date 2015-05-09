@@ -23,11 +23,10 @@ authController.signup = function (req, res) {
           email: email,
           password: hash
         })
-      ).run(r.conn);
-    })
-    .then(function (result) {
-       if (!result) res.send('User already exists');
-       res.send('User ' + email + ' created.');
+      ).run(r.conn, function (result) {
+        if (!result) res.send('User already exists');
+        res.send('User ' + email + ' created.');
+      });
     });
 };
 
