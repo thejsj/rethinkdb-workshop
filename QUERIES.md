@@ -11,7 +11,7 @@ r.db('GITHUB_HANDLE_rethinkdb_workshop').tableCreate('reddit')
 
 After that, copy paste this command into the Data explorer. It’s a complicated query, so don’t worry to much about understanding what’s going on.
 ````
-r.db('GITHUB_HANDLE_rethinkdb_workshop').table('reddit').insert(r.http('http://www.reddit.com/r/programming.json')('data')('children').map(r.row('data')))
+r.db('GITHUB_HANDLE_rethinkdb_workshop').table('reddit').insert(r.http('http://www.reddit.com/r/javascript.json')('data')('children').map(r.row('data').pluck('title', 'num_comments', 'ups', 'downs', 'id', 'score')))
 ```
 ## Running Queries
 
