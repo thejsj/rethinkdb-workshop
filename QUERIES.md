@@ -43,7 +43,12 @@ r.db('GITHUB_HANDLE_rethinkdb_workshop').table('reddit').getAll(0, { index: 'sco
 //Get the top three entries
 r.db('GITHUB_HANDLE_rethinkdb_workshop').table('reddit').orderBy({ index: r.desc('score') }).limit(3).changes()
 // Add the pluck again
-r.db('GITHUB_HANDLE_rethinkdb_workshop').table('reddit').orderBy({ index: r.desc('score') }).limit(3).changes().pluck('title', 'score')
+r.db('GITHUB_HANDLE_rethinkdb_workshop').table('reddit').orderBy({ index: r.desc('score') }).limit(3).changes()('new_val').pluck('title', 'score')
+// In another tab/window update one of the scores to get see the changefeed
+r.db('GITHUB_HANDLE_rethinkdb_workshop').table('reddit')(0).update({ score: 9999 })
+// Take a look at the changefeed to see the updated score
+// To see another update, change the score to 0
+r.db('GITHUB_HANDLE_rethinkdb_workshop').table('reddit')(0).update({ score: 0 })
 ```
 
 ## Extra Credit
