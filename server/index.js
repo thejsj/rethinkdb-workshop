@@ -3,16 +3,14 @@
 
 /* Instructions
  *
- * Complete all 5 steps to get the chat app working.
+ * Complete all 3 steps to get the chat app working.
  * Each step will involve writing a ReQL query to get a part of the app working.
  *
- * 1. Sign up: /server/auth/authcontroller.js:L18
- * 2. Login (2.1 and 2.2): /server/auth/index.js:L28 and L29
- * 3. Inserting messages: /server/index.js:116
- * 4. Getting messages: /server/index.js:L55
- * 5. Listening for messages: /server/index.js:L90
+ * 1. Inserting messages: /server/index.js:116
+ * 2. Getting messages: /server/index.js:L55
+ * 3. Listening for messages: /server/index.js:L90
  *
- * After completing these 5 steps, your chat app will run correctly.
+ * After completing these 3 steps, your chat app will run correctly.
  *
  * If you get stuck:
  *
@@ -73,7 +71,7 @@ app
   .use('/auth', authRouter)
   .get('/messages', function (req, res) {
     /*!
-     * Step 4: Getting messages
+     * Step 2: Getting messages
      *
      * Query instructions:
      * Write a query that gets all messages,
@@ -107,7 +105,7 @@ app
 io.on('connection', function (socket) {
   // Listen to new message being inserted
   /*!
-   * Step 5 : listening for messages
+   * Step 3 : listening for messages
    *
    * query instructions:
    * write a query that listens to changes in the
@@ -135,7 +133,7 @@ io.on('connection', function (socket) {
   // Insert new messages
   socket.on('message', function (data) {
     /*!
-     * Step 3 : Inserting messages
+     * Step 1 : Inserting messages
      *
      * Query instructions:
      * Insert a document into the `messages` table with
