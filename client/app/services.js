@@ -14,7 +14,7 @@
 
     socket.on('message', function (message) {
       $rootScope.$apply(function () {
-        messageCollection.push(message);
+        messageCollection.unshift(message);
       });
     });
 
