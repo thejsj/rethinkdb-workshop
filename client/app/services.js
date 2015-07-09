@@ -31,6 +31,7 @@
       console.log('Get Message Collection');
       return $http.get('/messages')
         .then(function (res) {
+          messageCollection = [];
           res.data.forEach(function (row) {
             messageCollection.push(row);
           });
