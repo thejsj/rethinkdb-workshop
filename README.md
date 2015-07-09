@@ -30,17 +30,17 @@ node server
 
 # Instructions
 
-**To get started, take a look at the instructions in the server/index.js file**
+**To get started, take a look at the instructions in the `server/index.js` file**
 
 After starting node and creating the necessary tables, you can now start writing ReQL queries to complete the excercise.
 
-Complete all 3 steps to get the chat app working. Each step will involve writing a ReQL query to get a part of the app working.
+Complete all three steps to get the chat app working. Each step will involve writing a ReQL query to get a part of the app working.
 
-1. Inserting messages: [/server/index.js:122](https://github.com/thejsj/rethinkdb-workshop/blob/master/server/index.js#L122)
+1. Inserting messages: [/server/index.js:L122](https://github.com/thejsj/rethinkdb-workshop/blob/master/server/index.js#L122)
 2. Getting messages: [/server/index.js:L74](https://github.com/thejsj/rethinkdb-workshop/blob/master/server/index.js#L74)
 3. Listening for messages: [/server/index.js:L101](https://github.com/thejsj/rethinkdb-workshop/blob/master/server/index.js#L101)
 
-After completing these 3 steps, your chat app will run correctly.
+After completing these three steps, your chat app will run correctly.
 
 **If you get stuck**:
 

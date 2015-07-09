@@ -3,14 +3,14 @@
 
 /* Instructions
  *
- * Complete all 3 steps to get the chat app working.
+ * Complete all three steps to get the chat app working.
  * Each step will involve writing a ReQL query to get a part of the app working.
  *
- * 1. Inserting messages: /server/index.js:116
+ * 1. Inserting messages: /server/index.js:L116
  * 2. Getting messages: /server/index.js:L55
  * 3. Listening for messages: /server/index.js:L90
  *
- * After completing these 3 steps, your chat app will run correctly.
+ * After completing these three steps, your chat app will run correctly.
  *
  * If you get stuck:
  *
@@ -104,7 +104,7 @@ io.on('connection', function (socket) {
    * write a query that listens to changes in the
    * `messages` table
    * hint: the query will return a cursor, not an array
-   * hint: the objects return by the cursor have a `new_val` and an `old_val` property
+   * hint: the objects returned by the cursor have a `new_val` and an `old_val` property
    *
    * callback instructions:
    * every time a change is pushed by the database, push that change to
