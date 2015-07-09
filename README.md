@@ -1,4 +1,3 @@
-
 # RethinkDB Workshop
 
 Learn the basics of RethinkDB and ReQL(RethinkDB query language) through building a simple chat app.
@@ -37,9 +36,9 @@ After starting node and creating the necessary tables, you can now start writing
 
 Complete all 3 steps to get the chat app working. Each step will involve writing a ReQL query to get a part of the app working.
 
-1. Inserting messages: [/server/index.js:116](https://github.com/thejsj/rethinkdb-workshop/blob/master/server/index.js#L138)
-2. Getting messages: [/server/index.js:L55](https://github.com/thejsj/rethinkdb-workshop/blob/master/server/index.js#L76)
-3. Listening for messages: [/server/index.js:L90](https://github.com/thejsj/rethinkdb-workshop/blob/master/server/index.js#L110)
+1. Inserting messages: [/server/index.js:122](https://github.com/thejsj/rethinkdb-workshop/blob/master/server/index.js#L122)
+2. Getting messages: [/server/index.js:L74](https://github.com/thejsj/rethinkdb-workshop/blob/master/server/index.js#L74)
+3. Listening for messages: [/server/index.js:L101](https://github.com/thejsj/rethinkdb-workshop/blob/master/server/index.js#L101)
 
 After completing these 3 steps, your chat app will run correctly.
 
@@ -65,10 +64,11 @@ If you finish with all steps, consider implementing some of the following featur
 Insert a document into the `messages` table with the following attributes: `text`, `email`, `created`
 
 **Fields:**
-
+```
 `text`: A string with the message text from the user
 `email`: An email address that exists in the `users` table
 `created`: A Unix Timestamp `(new Date()).getTime()`
+```
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTime
 
@@ -103,6 +103,7 @@ Once you have written this query, you'll be able to see all previously inserted 
 Write a query that listens to changes in the `messages` table.
 
 HINT: the query will return a cursor, not an array
+
 HINT: the objects return by the cursor have a `new_val` and an `old_val` property
 
 [http://rethinkdb.com/docs/changefeeds/javascript/](http://rethinkdb.com/docs/changefeeds/javascript/)
@@ -117,5 +118,3 @@ Every time a change is pushed by the database, push that change to the client by
 **Result:**
 
 Once you write this query, you'll be able to see new messages be displayed as they are being added
-
-
