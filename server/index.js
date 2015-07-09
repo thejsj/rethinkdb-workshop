@@ -90,7 +90,7 @@ app
      * all previously inserted messages when loading the page
      */
     r.table('messages')
-     .orderBy({index: 'created'})
+     .orderBy({index: r.desc('created') })
      .coerceTo('array')
      .run(r.conn, function (err, messages) {
        if (err) throw err;
