@@ -93,6 +93,7 @@ app
      .orderBy({index: 'created'})
      .coerceTo('array')
      .run(r.conn, function (err, messages) {
+       if (err) throw err;
        res.json(messages);
      });
   })
@@ -131,7 +132,9 @@ io.on('connection', function (socket) {
     if (err) console.log(err);
     r.table('messages')
       .changes().run(conn, function (err, cursor) {
+       if (err) throw err;
         cursor.each(function (err, row) {
+          if (err) throw err;
           socket.emit('message', row.new_val);
         }, function () { });
       });
