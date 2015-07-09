@@ -28,12 +28,16 @@
     return factory;
 
     function getMessageCollection() {
+      console.log('Get Message Collection');
       return $http.get('/messages')
         .then(function (res) {
           res.data.forEach(function (row) {
             messageCollection.push(row);
           });
           return messageCollection;
+        })
+        .catch(function (err) {
+          console.log('Error getting messages from server:', err);
         });
     }
 
