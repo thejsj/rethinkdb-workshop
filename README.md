@@ -28,6 +28,8 @@ npm run dev
 node server
 ```
 
+After starting your server, go to [http://localhost:8000](http://localhost:8000) on your browser.
+
 # Instructions
 
 **To get started, take a look at the instructions in the server/index.js file**
