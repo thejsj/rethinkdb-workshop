@@ -12,11 +12,8 @@
     vm.messages = [];
     vm.submit = submit;
 
-    console.log('MessagesController');
     $scope.$watch(function() {
       return vm.messages;
-    }, function (n, o) {
-      console.log('$watch / vm.messages');
     });
 
     MessageFactory.getMessageCollection()

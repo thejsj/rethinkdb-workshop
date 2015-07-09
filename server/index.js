@@ -46,7 +46,10 @@ var clientConfigParser = require('./clientConfigParser');
 var auth = require('./auth');
 var authRouter = require('./auth/auth-router');
 
-server.listen(config.get('ports').http);
+server.listen(config.get('ports').http, function (err) {
+  if (err) throw err;
+  console.log('Listening on port', config.get('ports').http);
+});
 
 // Middleware
 app
@@ -70,12 +73,13 @@ app
 app
   .use('/auth', authRouter)
   .get('/messages', function (req, res) {
+    console.log('HTTP Request for Messages');
     /*!
      * Step 2: Getting messages
      *
      * Query instructions:
      * Write a query that gets all messages,
-     * ordered by `created` (a secondary index)
+     * ordered by `created` in descending order (a secondary index)
      *
      * Callback instructions:
      * Return the messages array as a JSON document through `res`:
@@ -135,6 +139,8 @@ io.on('connection', function (socket) {
 
   // Insert new messages
   socket.on('message', function (data) {
+    // Display received message
+    console.log('New message received from client (Not inserted into database):', data);
     /*!
      * Step 1 : Inserting messages
      *
