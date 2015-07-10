@@ -6,9 +6,9 @@
  * Complete all 3 steps to get the chat app working.
  * Each step will involve writing a ReQL query to get a part of the app working.
  *
- * 1. Inserting messages: /server/index.js:116
- * 2. Getting messages: /server/index.js:L55
- * 3. Listening for messages: /server/index.js:L90
+ * 1. Inserting messages: /server/index.js:L127
+ * 2. Getting messages: /server/index.js:L77
+ * 3. Listening for messages: /server/index.js:L104
  *
  * After completing these 3 steps, your chat app will run correctly.
  *
